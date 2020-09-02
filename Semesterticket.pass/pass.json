@@ -1,0 +1,74 @@
+{
+    "foregroundColor": "rgb(0,0,0)",
+    "serialNumber": "",
+    "organizationName": "Deutsche Bahn",
+    "description": "NRW / VGM Semesterticket",
+    "groupingIdentifier": "",
+    "passTypeIdentifier": "pass.de.yanniks.passtest",
+    "teamIdentifier": "K77HP2K752",
+    "formatVersion": 1,
+    "expirationDate": "2020-10-02T00:00Z",
+    "backgroundColor": "rgb(255,255,255)",
+    "barcodes": [],
+    "generic": {
+        "headerFields": [
+            {
+                "changeMessage": "",
+                "textAlignment": "PKTextAlignmentRight",
+                "value": "",
+                "key": "h1",
+                "label": "Semester"
+            }
+        ],
+        "primaryFields": [
+            {
+                "value": "Semesterticket",
+                "key": "header"
+            }
+        ],
+        "secondaryFields": [
+            {
+                "key": "faux1",
+                "label": "Hochschule",
+                "value": "",
+                "textAlignment": "PKTextAlignmentLeft"
+            },
+            {
+                "key": "secondary1",
+                "label": "Vorname, Nachname",
+                "value": "",
+                "textAlignment": "PKTextAlignmentLeft"
+            }
+        ],
+        "auxiliaryFields": [
+            {
+                "label": "Geburtsdatum",
+                "key": "birthdate",
+                "value": ""
+            },
+            {
+                "label": "Geltungsbereich",
+                "key": "validity",
+                "value": ""
+            },
+            {
+                "label": "Matrikelnummer",
+                "key": "matrikel",
+                "value": ""
+            }
+        ],
+        "backFields": [
+            {
+                "label": "Origintalticket",
+                "key": "link",
+                "value": ""
+            }
+        ]
+    },
+    "suppressStripShine": false,
+    "associatedStoreIdentifiers": [
+        343555245,
+        1255423372
+    ],
+    "labelColor": "rgb(255,0,0)"
+}
