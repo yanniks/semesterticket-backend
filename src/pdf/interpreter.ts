@@ -2,7 +2,7 @@ import Tesseract from 'tesseract.js';
 import * as Canvas from "canvas";
 import moment = require("moment");
 export type int = number & { __int__: void };
-import { AztecCodeReader, HTMLCanvasElementLuminanceSource, BinaryBitmap, HybridBinarizer, IllegalStateException } from '@zxing/library/esm5';
+import { AztecCodeReader, HTMLCanvasElementLuminanceSource, BinaryBitmap, HybridBinarizer, IllegalStateException } from '@zxing/library';
 import { PDFDocumentProxy } from 'pdfjs-dist/lib/display/api';
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
 // const pdfjsLib = pdfjs;
