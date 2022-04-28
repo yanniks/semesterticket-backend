@@ -3,8 +3,10 @@ import * as Canvas from "canvas";
 import moment = require("moment");
 export type int = number & { __int__: void };
 import { AztecCodeReader, HTMLCanvasElementLuminanceSource, BinaryBitmap, HybridBinarizer, IllegalStateException } from '@zxing/library/esm5';
-import { PDFDocumentProxy } from 'pdfjs-dist';
-let pdfjsLib: any = require("pdfjs-dist/es5/build/pdf");
+import { PDFDocumentProxy } from 'pdfjs-dist/lib/display/api';
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+// const pdfjsLib = pdfjs;
+// let pdfjsLib: any = require("pdfjs-dist/lib/pdf");
 
 enum Table {
     UPPER,
@@ -284,38 +286,31 @@ async function pdfToAztecCode(canvas: Canvas.Canvas): Promise<Canvas.Canvas> {
     return newCanvas;
 }
 
-function convertImage(pdf: Buffer, scale: number = 12.0, canvasHeight: number = -1, canvasWidth: number = -1): Promise<Canvas.Canvas> {
+async function convertImage(pdf: Buffer, scale: number = 12.0, canvasHeight: number = -1, canvasWidth: number = -1): Promise<Canvas.Canvas> {
     // Read the PDF file into a typed array so PDF.js can load it.
     var rawData = new Uint8Array(pdf);
 
     // Load the PDF file.
     var loadingTask = pdfjsLib.getDocument(rawData);
-    return new Promise((resolve, reject) => {
-        loadingTask.promise
-            .then(function (pdfDocument: PDFDocumentProxy) {
+    const pdfDocument = await loadingTask.promise;
 
-                // Get the first page.
-                pdfDocument.getPage(1).then(function (page) {
-                    // Render the page on a Node canvas with 100% scale.
-                    const viewport = page.getViewport({ scale });
-                    const canvasFactory = new NodeCanvasFactory();
-                    const canvasAndContext = canvasFactory.create(
-                        canvasWidth > -1 ? canvasWidth : viewport.width,
-                        canvasHeight > -1 ? canvasHeight : viewport.height
-                    );
-                    var renderContext = {
-                        canvasContext: canvasAndContext.context,
-                        viewport: viewport,
-                        canvasFactory: canvasFactory,
-                    };
+    // Get the first page.
+    const page = await pdfDocument.getPage(1);
+    // Render the page on a Node canvas with 100% scale.
+    const viewport = page.getViewport({ scale });
+    const canvasFactory = new NodeCanvasFactory();
+    const canvasAndContext = canvasFactory.create(
+        canvasWidth > -1 ? canvasWidth : viewport.width,
+        canvasHeight > -1 ? canvasHeight : viewport.height
+    );
+    var renderContext = {
+        canvasContext: canvasAndContext.context,
+        viewport: viewport,
+        canvasFactory: canvasFactory,
+    };
 
-                    var renderTask = page.render(renderContext);
-                    renderTask.promise.then(function () {
-                        // Convert the canvas to an image buffer.
-                        const image = canvasAndContext.canvas;
-                        resolve(image);
-                    });
-                });
-            });
-    });
+    var renderTask = page.render(renderContext);
+    await renderTask.promise;
+    // Convert the canvas to an image buffer.
+    return canvasAndContext.canvas;
 }

@@ -3,12 +3,15 @@ import { generatePass } from "./wallet";
 import express from "express";
 import axios from "axios";
 import { constants } from "@walletpass/pass-js";
+import cors from "cors";
 
 const app = express();
 
+// app.use(cors());
+
 app.use(express.json());
 
-app.post("/", async (req, res) => {
+app.post("/pass", async (req, res) => {
     try {
         const serverResponse = await axios.get(req.body.url, {
             responseType: 'arraybuffer'
