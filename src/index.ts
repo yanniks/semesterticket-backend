@@ -28,6 +28,6 @@ app.post("/pass", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log(`Example app listening at http://localhost:${3000}`)
+app.listen(8080, () => {
+    console.log(`Example app listening at http://localhost:${8080}`)
 })

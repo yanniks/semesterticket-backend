@@ -7,6 +7,7 @@
     "start": "node dist/index.js",
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
+    "gcp-build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
