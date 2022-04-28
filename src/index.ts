@@ -7,7 +7,10 @@ import cors from "cors";
 
 const app = express();
 
-// app.use(cors());
+app.use(cors({
+    origin: 'https://semesterticket.yanniks.app',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}));
 
 app.use(express.json());
 
@@ -18,7 +21,7 @@ app.post("/pass", async (req, res) => {
         });
         const buffer = Buffer.from(serverResponse.data, 'binary');
         const code = await extractCode(buffer);
-        const pass = await generatePass({originalLink: req.body.url, ...code});
+        const pass = await generatePass({ originalLink: req.body.url, ...code });
         res.type(constants.PASS_MIME_TYPE);
         res.send(pass);
     } catch (e) {
